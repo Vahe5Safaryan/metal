@@ -740,54 +740,23 @@
 
 
 
+// Call Order **************
 
-
-
-
-
-
-
-
-
-  // let currentCategory = "armatura";
+  // const form = document.getElementById("callRequestForm");
+  // const message = document.getElementById("ctaMessage");
   //
-  // const setActiveCategory = (categoryEl) => {
-  //   document.querySelectorAll(".category").forEach(cat => cat.classList.remove("active"));
-  //   categoryEl.classList.add("active");
-  // };
+  // if (form && message) {
+  //   form.addEventListener("submit", function (e) {
+  //     e.preventDefault();
   //
-  // document.querySelectorAll(".category").forEach(category => {
-  //   category.addEventListener("click", () => {
-  //     const parent = category.dataset.category;
-  //     currentCategory = parent;
-  //     setActiveCategory(category);
+  //     message.classList.add("active");
   //
-  //     document.querySelectorAll(".subcategory-buttons").forEach(b => b.classList.remove("active"));
-  //     document.querySelectorAll(".product-table").forEach(t => t.classList.remove("active"));
-  //     document.querySelectorAll(".subcat-btn").forEach(b => b.classList.remove("active"));
-  //
-  //     const activeButtons = document.querySelector(`.subcategory-buttons[data-parent='${parent}']`);
-  //     if (activeButtons) {
-  //       activeButtons.classList.add("active");
-  //       const firstButton = activeButtons.querySelector(".subcat-btn");
-  //       if (firstButton) firstButton.click();
-  //     }
+  //     setTimeout(() => {
+  //       message.classList.remove("active");
+  //     }, 10000);
   //   });
-  // });
-  //
-  // document.querySelectorAll(".subcat-btn").forEach(btn => {
-  //   btn.addEventListener("click", () => {
-  //     document.querySelectorAll(`.subcategory-buttons[data-parent='${currentCategory}'] .subcat-btn`).forEach(b => b.classList.remove("active"));
-  //     btn.classList.add("active");
-  //
-  //     document.querySelectorAll(".product-table").forEach(t => t.classList.remove("active"));
-  //     const target = document.getElementById(btn.dataset.table);
-  //     if (target) target.classList.add("active");
-  //   });
-  // });
+  // }
 
-
-// Call Order
 
   const form = document.getElementById("callRequestForm");
   const message = document.getElementById("ctaMessage");
@@ -796,21 +765,27 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      message.classList.add("active");
+      const name = form.elements["name"].value.trim();
+      const phone = form.elements["phone"].value.trim();
 
+      const whatsappNumber = "79055993650";
+      const text = encodeURIComponent(`Имя: ${name}\nТелефон: ${phone}`);
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${text}`;
+
+      window.open(whatsappURL, "_blank");
+
+      // Показываем сообщение
+      message.classList.add("active");
       setTimeout(() => {
         message.classList.remove("active");
+        form.reset(); // сброс формы
       }, 10000);
     });
   }
-
-
-
-
+// Call Order **************
 
 
   // window load event
-
   $(window).on("load", function () {
     if ($(".preloader").length) {
       $(".preloader").fadeOut();
